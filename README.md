@@ -11,6 +11,6 @@ Project for Hackaton
 8 git reset --hard - команда берет все изменения и возвращает предыдущую версию файла (до изменений)
 9 git branch - показывает ветку
 10 git checkout develop - переход в нужную ветку (develop)
-11. git pull origin master - забирает все изменения из облака github (master ветка) в локальную мастер ветку
+11. git pull origin main - забирает все изменения из облака github (main ветка) в локальную main ветку
 12 git merge - слияние с веткой master через терминал
 13 git branch -d develop - удалить ветку из локального репозитория
