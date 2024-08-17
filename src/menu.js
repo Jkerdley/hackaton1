@@ -8,7 +8,7 @@ export class ContextMenu extends Menu {
       this.open(event.clientX, event.clientY);
     });
   }
-
+  
   open(x, y) {
     if (this.menuItems.length > 0) {
       this.el.style.top = `${y}px`;
