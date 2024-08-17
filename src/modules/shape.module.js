@@ -6,7 +6,6 @@ export class ShapeModule extends Module {
   }
 
   trigger() {
-    console.log('ShapeModule triggered');
     const shape = document.createElement('div');
     const size = random(50, 200);
     shape.style.width = `${size}px`;
