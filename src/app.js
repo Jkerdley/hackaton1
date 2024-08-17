@@ -7,8 +7,6 @@ import { ShapeModule } from './modules/shape.module';
 
 const menu = new ContextMenu('#menu');
 
-console.log('Hello world!')
-
 menu.add(new BackgroundModule());
 menu.add(new ClicksModule());
 menu.add(new ShapeModule());
