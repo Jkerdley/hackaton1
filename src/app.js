@@ -15,4 +15,6 @@ menu.add(new ClicksModule())
 menu.add(new ShapeModule())
 menu.add(new HeadingModule())
 menu.add(new FortuneCookies())
+
 menu.add(new TimerModule())
+
