@@ -1,17 +1,16 @@
 import { Module } from "../core/module";
-
 export class TimerModule extends Module {
-  constructor() {
-    super("timer", "Задать таймер");
-  }
+  // constructor() {
+  //   super("timer", "Задать таймер");
+  // }
   trigger() {
     const timerWrapper = document.createElement("div");
-
     const timer = document.createElement("div");
     timer.style.cssText =
       "padding: 10px; background-color: black; color: white; font-size: 20px; display: inline-block; border-radius: 10px";
 
     timerWrapper.append(timer);
+
     let time = Number(prompt("Введите насколько секунд поставить таймер"));
     const startTime = Date.now();
 

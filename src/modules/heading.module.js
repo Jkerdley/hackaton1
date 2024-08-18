@@ -1,5 +1,5 @@
 import { Module } from '../core/module';
-import { random } from '../utils';
+import { random, getRandomColor } from '../utils';
 export class HeadingModule extends Module {
   constructor() {
     super('heading', 'Случайный Заголовок');
@@ -40,7 +40,7 @@ export class HeadingModule extends Module {
         heading.textContent = userInput;
 
         const size = random(50, 200);
-        heading.style.color = `rgb(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)})`;
+        heading.style.color = getRandomColor();
         heading.style.position = 'absolute';
         heading.style.top = `${random(0, window.innerHeight - size)}px`;
         heading.style.left = `${random(0, window.innerWidth - size)}px`;

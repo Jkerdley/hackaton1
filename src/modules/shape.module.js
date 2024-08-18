@@ -1,5 +1,5 @@
 import { Module } from '../core/module';
-import { random } from '../utils';
+import { random, getRandomColor } from '../utils';
 
 export class ShapeModule extends Module {
   constructor() {
@@ -11,7 +11,7 @@ export class ShapeModule extends Module {
     const size = random(50, 200);
     square.style.width = `${size}px`;
     square.style.height = `${size}px`;
-    square.style.backgroundColor = `rgb(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)})`;
+    square.style.backgroundColor = getRandomColor();
     square.style.position = 'absolute';
     square.style.top = `${random(0, window.innerHeight - size)}px`;
     square.style.left = `${random(0, window.innerWidth - size)}px`;
@@ -24,7 +24,7 @@ export class ShapeModule extends Module {
     circle.style.width = `${size}px`;
     circle.style.height = `${size}px`;
     circle.style.borderRadius = '50%';
-    circle.style.backgroundColor = `rgb(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)})`;
+    circle.style.backgroundColor = getRandomColor();
     circle.style.position = 'absolute';
     circle.style.top = `${random(0, window.innerHeight - size)}px`;
     circle.style.left = `${random(0, window.innerWidth - size)}px`;
@@ -37,7 +37,7 @@ export class ShapeModule extends Module {
     const height = random(50, 200);
     rectangle.style.width = `${width}px`;
     rectangle.style.height = `${height}px`;
-    rectangle.style.backgroundColor = `rgb(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)})`;
+    rectangle.style.backgroundColor = getRandomColor();
     rectangle.style.position = 'absolute';
     rectangle.style.top = `${random(0, window.innerHeight - height)}px`;
     rectangle.style.left = `${random(0, window.innerWidth - width)}px`;
@@ -51,7 +51,7 @@ export class ShapeModule extends Module {
     triangle.style.height = '0';
     triangle.style.borderStyle = 'solid';
     triangle.style.borderWidth = `0 ${size}px ${size}px 0`;
-    triangle.style.borderColor = `transparent transparent rgb(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)}) transparent`;
+    triangle.style.borderColor = `transparent transparent ${getRandomColor()} transparent`;
     triangle.style.position = 'absolute';
     triangle.style.top = `${random(0, window.innerHeight - size)}px`;
     triangle.style.left = `${random(0, window.innerWidth - size)}px`;
