@@ -3,7 +3,6 @@ export class ContextMenu extends Menu {
   constructor(selector) {
     super(selector);
     this.menuItems = [];
-
     document.body.addEventListener("contextmenu", (event) => {
       event.preventDefault();
       this.open(event.clientX, event.clientY);
