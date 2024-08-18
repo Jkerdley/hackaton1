@@ -5,6 +5,7 @@ import { random } from '../utils'
 export class FortuneCookies extends Module {
 	constructor() {
 		super('fortune', 'Печеньки с предсказаниями')
+		this.containerFortune = null
 	}
 
 	async fetchFortuneData() {
@@ -24,8 +25,18 @@ export class FortuneCookies extends Module {
 		}
 	}
 
+	removePreviousContainer() {
+		if (this.containerFortune) {
+			this.containerFortune.remove()
+			this.containerFortune = null
+		}
+	}
+
 	async trigger() {
-		const containerFortune = document.createElement('div')
+		// Удалил предыдущий контейнер, если он существует
+		this.removePreviousContainer()
+
+		this.containerFortune = document.createElement('div')
 		const containerRow = document.createElement('div')
 		const titleFortune = document.createElement('h1')
 		const btnFortune = document.createElement('button')
@@ -33,17 +44,17 @@ export class FortuneCookies extends Module {
 
 		// Content
 		titleFortune.textContent = 'Fortune Cookies'
-		btnFortune.textContent = 'Random'
+		btnFortune.textContent = 'Выдать печеньку :)'
 
 		// ClassName
-		containerFortune.className = 'container__fortune'
+		this.containerFortune.className = 'container__fortune'
 		containerRow.className = 'fortune-row'
 		btnFortune.className = 'heading-close-button'
 
 		// Add UI
-		containerFortune.append(containerRow, randomTitle)
+		this.containerFortune.append(containerRow, randomTitle)
 		containerRow.append(titleFortune, btnFortune)
-		document.body.appendChild(containerFortune)
+		document.body.appendChild(this.containerFortune)
 
 		const data = await this.fetchFortuneData()
 
@@ -59,6 +70,11 @@ export class FortuneCookies extends Module {
 					255
 				)}, ${random(0, 255)})`
 				randomTitle.textContent = selectedItem.title
+			} else {
+				randomTitle.textContent = 'Печенька не найдена'
+				setTimeout(() => {
+					this.removePreviousContainer()
+				}, 2000)
 			}
 		})
 	}
