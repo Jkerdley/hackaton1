@@ -152,6 +152,24 @@ body {
 .dblclick-counter {
 	margin-top: 5px;
 }
+/* Fortune */
+.container__fortune {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.fortune-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+.container__fortune h2 {
+	text-align: center;
+	font-size: 24px;
+	margin: 50px 0 0 0;
+}
 /* ======================== */
 
 @media (min-width: 768px) {
