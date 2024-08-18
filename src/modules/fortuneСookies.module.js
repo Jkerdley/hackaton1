@@ -40,23 +40,37 @@ export class FortuneCookies extends Module {
 		const containerRow = document.createElement('div')
 		const titleFortune = document.createElement('h1')
 		const btnFortune = document.createElement('button')
+		const btnFortuneRemove = document.createElement('button')
 		const randomTitle = document.createElement('h2')
 
 		// Content
 		titleFortune.textContent = 'Fortune Cookies'
 		btnFortune.textContent = 'Выдать печеньку :)'
+		btnFortuneRemove.textContent = 'Закрыть печеньку :('
 
 		// ClassName
 		this.containerFortune.className = 'container__fortune'
 		containerRow.className = 'fortune-row'
 		btnFortune.className = 'heading-close-button'
+		btnFortuneRemove.className = 'heading-close-button_remove'
 
 		// Add UI
 		this.containerFortune.append(containerRow, randomTitle)
-		containerRow.append(titleFortune, btnFortune)
+		containerRow.append(btnFortuneRemove, titleFortune, btnFortune)
 		document.body.appendChild(this.containerFortune)
 
 		const data = await this.fetchFortuneData()
+
+		btnFortuneRemove.addEventListener('click', e => {
+			if (e.target) {
+				this.removePreviousContainer()
+			} else {
+				randomTitle.textContent = 'Кнопка с печенька не работает'
+				setTimeout(() => {
+					this.removePreviousContainer()
+				}, 20000)
+			}
+		})
 
 		btnFortune.addEventListener('click', e => {
 			const { target } = e
@@ -74,7 +88,7 @@ export class FortuneCookies extends Module {
 				randomTitle.textContent = 'Печенька не найдена'
 				setTimeout(() => {
 					this.removePreviousContainer()
-				}, 2000)
+				}, 20000)
 			}
 		})
 	}

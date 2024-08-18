@@ -115,19 +115,73 @@ body {
 	outline: 0;
 }
 
+.heading-close-button_remove {
+	margin-left: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 0 10px 10px 0;
+	background-color: #e590ed;
+	cursor: pointer;
+	align-items: center;
+	background-color: #fee6e3;
+	border: 2px solid #111;
+	border-radius: 8px;
+	box-sizing: border-box;
+	color: #111;
+	cursor: pointer;
+	display: flex;
+	font-family: Inter, sans-serif;
+	font-size: 16px;
+	height: 48px;
+	justify-content: center;
+	line-height: 24px;
+	max-width: 100%;
+	padding: 0 25px;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+
+.heading-close-button_remove::after {
+	background-color: #111;
+	border-radius: 8px;
+	content: '';
+	display: block;
+	height: 48px;
+	left: 0;
+	width: 100%;
+	position: absolute;
+	top: -2px;
+	transform: translate(-8px, 8px);
+	transition: transform 0.2s ease-out;
+	z-index: -1;
+}
+
+.heading-close-button_remove:hover:after {
+	transform: translate(0, 0);
+}
+
+.heading-close-button_remove:active {
+	background-color: #ffdeda;
+	outline: 0;
+}
+
 /* Click Analytics */
 
 .click-analytics-ui {
-  position: fixed;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 8px;
-  z-index: 1000;
+	position: fixed;
+	top: 15%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(0, 0, 0, 0.8);
+	padding: 20px;
+	color: #fff;
+	font-size: 16px;
+	border-radius: 8px;
+	z-index: 1000;
 }
 
 .countdown-text {
