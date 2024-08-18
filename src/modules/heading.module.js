@@ -1,12 +1,16 @@
 import { Module } from '../core/module';
 import { random } from '../utils';
-
 export class HeadingModule extends Module {
   constructor() {
     super('heading', 'Случайный Заголовок');
   }
 
   trigger() {
+     const existingContainer = document.querySelector('.heading-container');
+    if (existingContainer) {
+      existingContainer.remove();
+    }
+
     const variants = ['h1', 'h2', 'h3', 'h4', 'h5'];
     const inputField = document.createElement('input');
     inputField.type = 'text';
@@ -40,7 +44,6 @@ export class HeadingModule extends Module {
         heading.style.position = 'absolute';
         heading.style.top = `${random(0, window.innerHeight - size)}px`;
         heading.style.left = `${random(0, window.innerWidth - size)}px`;
-
         document.body.appendChild(heading);
 
         setTimeout(() => heading.remove(), 3000); 
