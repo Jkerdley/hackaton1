@@ -118,15 +118,16 @@ body {
 /* Click Analytics */
 
 .click-analytics-ui {
-	position: fixed;
-	top: 20px;
-	left: 20px;
-	background-color: rgba(0, 0, 0, 0.8);
-	padding: 20px;
-	color: #fff;
-	font-size: 16px;
-	border-radius: 8px;
-	z-index: 1000;
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+  z-index: 1000;
 }
 
 .countdown-text {

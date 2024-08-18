@@ -1,129 +1,140 @@
 import { Module } from '../core/module'
 
 export class ClicksModule extends Module {
-	constructor() {
-		super('click', 'Click Analytics')
-		this.countClick = 0
-		this.countDblClick = 0
-		this.timeRemaining = 0
-		this.totalTime = 0
-	}
+  constructor() {
+    super('click', 'Аналитика кликов')
+    this.countClick = 0
+    this.countDblClick = 0
+    this.countRightClick = 0
+    this.timeRemaining = 0
+    this.totalTime = 0
+  }
 
-	trigger() {
-		alert('You have a set time limit (maximum 1 hour)!')
-		let userPrompt = Number(
-			prompt('Enter the time in seconds (max 3600 seconds):', '')
-		)
+  trigger() {
+    alert('Вам нужно установить лимит времени (максимум 1 час)!')
+    let userPrompt = Number(prompt('Введите время в секундах (максимум 3600 сек = 60 минут = 1 час):', 5))
 
-		if (isNaN(userPrompt) || userPrompt <= 0) {
-			alert('Please enter a valid number greater than 0.')
-			return
-		}
+    if (isNaN(userPrompt) || userPrompt <= 0) {
+      alert('Пожалуйста введите число больше 0')
+      return
+    }
 
-		// Limit Time
-		if (userPrompt > 3600) {
-			alert(
-				'Time limit exceeded! Setting the maximum time to 3600 seconds (1 hour).'
-			)
-			userPrompt = 3600
-		}
+    // Ограничение времени
+    if (userPrompt > 3600) {
+      alert(
+        'Лимит времени превышен! Максимальное время 3600 секунд (1 час).'
+      )
+      userPrompt = 3600
+    }
 
-		this.countClick = 0
-		this.countDblClick = 0
-		this.timeRemaining = userPrompt
-		this.totalTime = userPrompt
+    this.countClick = 0
+    this.countDblClick = 0
+    this.countRightClick = 0
+    this.timeRemaining = userPrompt
+    this.totalTime = userPrompt
 
-		// Render ==============================
+    // Отрисовка интерфейса ==============================
 
-		// Render UI 1.0V
-		// const { countdownElement, progressBar, clickCounter, dblClickCounter } =
-		// 	this.renderUI()
+    // Отрисовка интерфейса 2.0V
+    const uiElements = this.renderUI()
 
-		// Render UI 2.0V
-		const uiElements = this.renderUI()
+    // Обработчик одиночного клика
+    const clickHandler = () => {
+      this.countClick++
+      uiElements.clickCounter.textContent = `Одиночные клики: ${this.countClick}`
+    }
 
-		// Single click
-		const clickHandler = () => {
-			this.countClick++
-			uiElements.clickCounter.textContent = `Single Clicks: ${this.countClick}`
-		}
+    // Обработчик двойного клика
+    const dblClickHandler = () => {
+      this.countDblClick++
+      uiElements.dblClickCounter.textContent = `Двойные клики: ${this.countDblClick}`
+    }
 
-		// Double click
-		const dblClickHandler = () => {
-			this.countDblClick++
-			uiElements.dblClickCounter.textContent = `Double Clicks: ${this.countDblClick}`
-		}
+    // Обработчик клика правой кнопкой мыши
+    const rightClickHandler = (event) => {
+      event.preventDefault()
+      this.countRightClick++
+      uiElements.rightClickCounter.textContent = `Клики правой кнопкой: ${this.countRightClick}`
+    }
 
-		// Event Click && Double click
-		document.addEventListener('click', clickHandler)
-		document.addEventListener('dblclick', dblClickHandler)
+    // Добавление событий клика и двойного клика
+    document.addEventListener('click', clickHandler)
+    document.addEventListener('dblclick', dblClickHandler)
+    document.addEventListener('contextmenu', rightClickHandler)
 
-		// Add Interval count and progress-bar
-		const countdownInterval = setInterval(() => {
-			this.timeRemaining--
-			uiElements.countdownElement.textContent = `Time remaining: ${this.timeRemaining} seconds`
-			uiElements.progressBar.style.width = `${
-				(this.timeRemaining / this.totalTime) * 100
-			}%`
+    // Добавление интервала для отсчета времени и прогресс-бара
+    const countdownInterval = setInterval(() => {
+      this.timeRemaining--
+      uiElements.countdownElement.textContent = `Осталось времени: ${this.timeRemaining} секунд`
+      uiElements.progressBar.style.width = `${
+        (this.timeRemaining / this.totalTime) * 100
+      }%`
 
-			if (this.timeRemaining <= 0) {
-				clearInterval(countdownInterval)
-				document.removeEventListener('click', clickHandler)
-				document.removeEventListener('dblclick', dblClickHandler)
-				alert(
-					`Time's up! You made ${this.countClick} single clicks and ${this.countDblClick} double clicks.`
-				)
-				// Remove element UI
-				this.cleanupUI(uiElements.uiContainer)
-			}
-		}, 1000)
-	}
+      if (this.timeRemaining <= 0) {
+        clearInterval(countdownInterval)
+        document.removeEventListener('click', clickHandler)
+        document.removeEventListener('dblclick', dblClickHandler)
+        document.removeEventListener('contextmenu', rightClickHandler)
+        alert(
+          `Время вышло! Вы сделали ${this.countClick} одиночных кликов, ${this.countDblClick} двойных кликов и ${this.countRightClick} кликов правой кнопкой`
+        )
+        // Удаление элементов интерфейса
+        this.cleanupUI(uiElements.uiContainer)
+      }
+    }, 1000)
+  }
 
-	renderUI() {
-		// Create Container
-		const uiContainer = document.createElement('div')
-		uiContainer.className = 'click-analytics-ui'
+  renderUI() {
+    // Создание контейнера
+    const uiContainer = document.createElement('div')
+    uiContainer.className = 'click-analytics-ui'
 
-		//  Create element for ui time remaining
-		const countdownElement = document.createElement('div')
-		countdownElement.className = 'countdown-text'
-		countdownElement.textContent = `Time remaining: ${this.timeRemaining} seconds`
+    // Создание элемента для отображения оставшегося времени
+    const countdownElement = document.createElement('div')
+    countdownElement.className = 'countdown-text'
+    countdownElement.textContent = `Осталось времени: ${this.timeRemaining} секунд`
 
-		// Create ProgressBar
-		const progressBarContainer = document.createElement('div')
-		progressBarContainer.className = 'progress-bar-container'
+    // Создание прогресс-бара
+    const progressBarContainer = document.createElement('div')
+    progressBarContainer.className = 'progress-bar-container'
 
-		const progressBar = document.createElement('div')
-		progressBar.className = 'progress-bar'
-		progressBarContainer.appendChild(progressBar)
+    const progressBar = document.createElement('div')
+    progressBar.className = 'progress-bar'
+    progressBarContainer.appendChild(progressBar)
 
-		// Create element for ui count click
-		const clickCounter = document.createElement('div')
-		clickCounter.className = 'click-counter'
-		clickCounter.textContent = `Single Clicks: ${this.countClick}`
+    // Создание элемента для отображения количества одиночных кликов
+    const clickCounter = document.createElement('div')
+    clickCounter.className = 'click-counter'
+    clickCounter.textContent = `Одиночные клики: ${this.countClick}`
 
-		const dblClickCounter = document.createElement('div')
-		dblClickCounter.className = 'dblclick-counter'
-		dblClickCounter.textContent = `Double Clicks: ${this.countDblClick}`
+    const dblClickCounter = document.createElement('div')
+    dblClickCounter.className = 'dblclick-counter'
+    dblClickCounter.textContent = `Двойные клики: ${this.countDblClick}`
 
-		// Add all element to container
+    const rightClickCounter = document.createElement('div')
+    rightClickCounter.className = 'rightclick-counter'
+    rightClickCounter.textContent = `Клики правой кнопкой: ${this.countRightClick}`
+
+		// Добавляем все элементы в контейнер
 		uiContainer.appendChild(countdownElement)
-		uiContainer.appendChild(progressBarContainer)
-		uiContainer.appendChild(clickCounter)
-		uiContainer.appendChild(dblClickCounter)
-		document.body.appendChild(uiContainer)
+    uiContainer.appendChild(progressBarContainer)
+    uiContainer.appendChild(clickCounter)
+    uiContainer.appendChild(dblClickCounter)
+    uiContainer.appendChild(rightClickCounter)
+    document.body.appendChild(uiContainer)
 
 		return {
 			uiContainer,
-			countdownElement,
-			progressBar,
-			clickCounter,
-			dblClickCounter,
+      countdownElement,
+      progressBar,
+      clickCounter,
+      dblClickCounter,
+      rightClickCounter,
 		}
 	}
 
 	cleanupUI(container) {
-		//  Delete UI element from DOM
+		//  Удаляем UI элемент из DOM
 		document.body.removeChild(container)
 	}
 }
