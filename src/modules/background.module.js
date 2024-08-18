@@ -3,7 +3,7 @@ import { random } from '../utils';
 
 export class BackgroundModule extends Module {
   constructor() {
-    super('background', 'Change Background');
+    super('background', 'Заменить цвет фона');
   }
 
   trigger() {

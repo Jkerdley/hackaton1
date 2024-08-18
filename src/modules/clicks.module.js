@@ -1,8 +1,7 @@
 import { Module } from '../core/module'
-
 export class ClicksModule extends Module {
 	constructor() {
-		super('click', 'Click Analytics')
+		super('click', 'Аналитика кликов')
 		this.countClick = 0
 		this.countDblClick = 0
 		this.timeRemaining = 0
@@ -10,20 +9,18 @@ export class ClicksModule extends Module {
 	}
 
 	trigger() {
-		alert('You have a set time limit (maximum 1 hour)!')
-		let userPrompt = Number(
-			prompt('Enter the time in seconds (max 3600 seconds):', '')
-		)
+		alert('Вам нужно установить лимит времени (максимум 1 час)!')
+		let userPrompt = Number(prompt('Введите время в секундах (максимум 3600 сек = 60 минут = 1 час):', 5))
 
 		if (isNaN(userPrompt) || userPrompt <= 0) {
-			alert('Please enter a valid number greater than 0.')
+			alert('Пожалуйста введите число больше 0')
 			return
 		}
 
 		// Limit Time
 		if (userPrompt > 3600) {
 			alert(
-				'Time limit exceeded! Setting the maximum time to 3600 seconds (1 hour).'
+				'Лимит времени превышен! Максимальное время 3600 секунд (1 час).'
 			)
 			userPrompt = 3600
 		}
@@ -45,13 +42,13 @@ export class ClicksModule extends Module {
 		// Single click
 		const clickHandler = () => {
 			this.countClick++
-			uiElements.clickCounter.textContent = `Single Clicks: ${this.countClick}`
+			uiElements.clickCounter.textContent = `Одиночные клики: ${this.countClick}`
 		}
 
 		// Double click
 		const dblClickHandler = () => {
 			this.countDblClick++
-			uiElements.dblClickCounter.textContent = `Double Clicks: ${this.countDblClick}`
+			uiElements.dblClickCounter.textContent = `Двойные клики: ${this.countDblClick}`
 		}
 
 		// Event Click && Double click
@@ -61,7 +58,7 @@ export class ClicksModule extends Module {
 		// Add Interval count and progress-bar
 		const countdownInterval = setInterval(() => {
 			this.timeRemaining--
-			uiElements.countdownElement.textContent = `Time remaining: ${this.timeRemaining} seconds`
+			uiElements.countdownElement.textContent = `Осталось времени: ${this.timeRemaining} секунд`
 			uiElements.progressBar.style.width = `${
 				(this.timeRemaining / this.totalTime) * 100
 			}%`
@@ -71,7 +68,7 @@ export class ClicksModule extends Module {
 				document.removeEventListener('click', clickHandler)
 				document.removeEventListener('dblclick', dblClickHandler)
 				alert(
-					`Time's up! You made ${this.countClick} single clicks and ${this.countDblClick} double clicks.`
+					`Время вышло! Вы сделали ${this.countClick} одиночных кликов и ${this.countDblClick} двойных кликов`
 				)
 				// Remove element UI
 				this.cleanupUI(uiElements.uiContainer)
@@ -100,11 +97,11 @@ export class ClicksModule extends Module {
 		// Create element for ui count click
 		const clickCounter = document.createElement('div')
 		clickCounter.className = 'click-counter'
-		clickCounter.textContent = `Single Clicks: ${this.countClick}`
+		clickCounter.textContent = `Одиночные клики ${this.countClick}`
 
 		const dblClickCounter = document.createElement('div')
 		dblClickCounter.className = 'dblclick-counter'
-		dblClickCounter.textContent = `Double Clicks: ${this.countDblClick}`
+		dblClickCounter.textContent = `Двойные клики ${this.countDblClick}`
 
 		// Add all element to container
 		uiContainer.appendChild(countdownElement)
