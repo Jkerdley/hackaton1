@@ -1,5 +1,4 @@
 import { Module } from "../core/module";
-
 export class TimerModule extends Module {
   // constructor() {
   //   super("timer", "Задать таймер");
