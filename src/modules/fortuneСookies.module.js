@@ -1,4 +1,3 @@
-import { BASE_URL_API } from '../constants/contsants'
 import { Module } from '../core/module'
 import { random } from '../utils'
 
@@ -9,6 +8,7 @@ export class FortuneCookies extends Module {
 	}
 
 	async fetchFortuneData() {
+		const BASE_URL_API = 'https://jsonplaceholder.typicode.com/posts'
 		try {
 			const response = await fetch(BASE_URL_API)
 
