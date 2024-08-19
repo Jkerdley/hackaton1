@@ -1,5 +1,5 @@
 import "./styles.css";
-import { menu } from './constants/contsants'
+import { ContextMenu } from "./menu";
 
 import { BackgroundModule } from "./modules/background.module";
 import { ClicksModule } from "./modules/clicks.module";
@@ -8,6 +8,8 @@ import { HeadingModule } from "./modules/heading.module";
 import { TimerModule } from "./modules/timer.module";
 import { MouseEffectModule } from "./modules/MouseEffect.module.js";
 import { FortuneCookies } from "./modules/fortuneСookies.module.js";
+
+const menu = new ContextMenu("#menu");
 
 menu.add(new FortuneCookies());
 menu.add(new BackgroundModule());
